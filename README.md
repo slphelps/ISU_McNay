@@ -1,6 +1,6 @@
 # ISU_McNay Repro Performance 
 
-This is a repository containing the ISU McNay herd's yearly reproductive performance data. In this repository there is a folder titled "year_sheets" that conatins csv files with yearly/seasonal reproductive data. These files are used in the R script to generate reproductive performance summaries. The R script contains code to run summary statistics for reproductive performance. The follow percentages are generated: artificial insemination (AI), natural service (NS), open, pregnancy loss, and calf death loss. Total numbers for exposed cows in each year/season and calves born in each year/season are also generated. Graphical bar displays of year/season percentages are plotted and saved individually. 
+This is a repository containing the ISU McNay herd's yearly reproductive performance data. In this repository there is a folder titled "year_sheets" that conatins csv files with yearly/seasonal reproductive data. These files are used in the R script to generate reproductive performance summaries. The R script contains code to run summary statistics for reproductive performance. The follow percentages are generated: artificial insemination (AI), natural service (NS), open, pregnancy loss, twin birth, and calf death loss. Total numbers for exposed cows in each year/season and calves born in each year/season are also generated. Graphical bar displays of year/season percentages are plotted and saved individually. 
 
 
 ## Year_Sheets Formatting 
@@ -51,6 +51,29 @@ Congrats you did it!
 
 Note: if you are a Unix/Linus wizard, this data formating could be done using the terminal. Please add a code script to this repository if you are up for the challange. 
 
+## repro_summary_script.r
+
+The following R script is used to generate excel, csv, and png graphs of reproductive and performance data. 
+
+### Directories created in this code: 
+* **calving_distribution** is a directory that stores the yearly/group calving density plot. Each plot is named "density*group*_*year*.png".
+* **reproductive_performance_plots** is a directory that stores yearly/group bar charts displaying the percentage of calves that were AI born, NS born, and the percentage of cows that were open, meaning they did not have a calf. Each plot is named "Reproductive_Performance_*group*_*year*.png". Note: AI % in this graph is calculated by total AI born/ total exposed. Not all females across the year/groups were AI exposed. The sum of the three percetages should equal 100.
+* **preg_calf_Loss_plots** is a directory that contains bar displays of the percentage of pregnancy losses and calf losses in year year/group combination. The plots are named Losses_*group*_*year*.png".
+
+### Excel/csv files generated: 
+* **group_results.csv/xlsx** contain reproductive percentages, split by year and group.
+  AI_Percent: calculated by taking the number of AI confirmed calves over the total number of AI exposed cows.
+  AI_Percent_NB: calculated by taking the number of AI confirmed calves over the total number of exposed cows.
+  NS_Percent: calculated by taking the number of calves born from natural serive sires over the total number of exposed cows. 
+  Open_Percent: calculated by the total number of open cows over the total number of exposed cows.
+  Note: the sum of AI_Percent_NB, NS_Percent, and Open_Percent in each row should equal 100%.
+* **loss_results.csv/xlsx** contain pregnancy and calf loss total counts, and percentages for pregnancy loss, calf loss, and twin births split by year and group.
+  Preg_loss: total number of cows that lost a pregnancy.
+  Calf_loss: total number of calf deaths at or after birth.
+  Preg_loss_percentage: Preg_loss divided by total number confirmed pregnant
+  Calf_loss_percentage: Calf_loss divided by total number of calves born
+  Twin birth percentage: calculate by taking the number of twin births (not total number of twins) divided by the total number of pregnancies minus the total number of preg losses (total pregnancies - preg loss = total # of births).
+* **numbers.csv/xlxs** contain the counts for cows, calves, twin births, and AI cows, split by year and group.
 
 
 
