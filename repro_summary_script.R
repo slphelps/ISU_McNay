@@ -334,7 +334,7 @@ for (key in names(group_sets)) {
   twin_count[[key]] <- length(data$Twin[!is.na(data$Twin) & data$Twin == 1])
   
   # twin birth %
-  twin_per[[key]] <- ((twin_count[[key]] / preg[[key]]) * 100)
+  twin_per[[key]] <- ((twin_count[[key]] / (preg[[key]] - preg_loss[[key]])) * 100)
 }
 
 
@@ -407,7 +407,7 @@ loss_results_longer <- loss_results_reduced %>% pivot_longer(
 
 
 # create a directory for loss bar plots
-dir.create("Preg_Calf_Loss_plots", showWarnings = FALSE) 
+dir.create("preg_calf_Loss_plots", showWarnings = FALSE) 
 
 
 for (group in unique(loss_results_longer$Group)) { # for each unique group in the data frame
@@ -434,7 +434,7 @@ for (group in unique(loss_results_longer$Group)) { # for each unique group in th
                       
   
   # Create the filename
-  loss_bar_name <- paste0("Preg_Calf_Loss_plots/Loss_", gsub(" ", "_", group), ".png")
+  loss_bar_name <- paste0("preg_calf_loss_plots/loss_", gsub(" ", "_", group), ".png")
   
   # Save the plot to a file
   ggsave(filename = loss_bar_name, plot = loss_bar, width = 8, height = 6)
