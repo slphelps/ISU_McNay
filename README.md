@@ -5,7 +5,7 @@ This is a repository containing the ISU McNay herd's yearly reproductive perform
 
 ## Year_Sheets Formatting 
 
-The year sheets are split between year and season and named accordily. For example, all the spring calves born in 2023 will be included in the file "calving_spring_2023.csv" and all fall 2023 calves will be in the "calving_fall_2023.csv". 
+The year sheets are split between year and season and named accordingly. For example, all the spring calves born in 2023 will be included in the file "calving_spring_2023.csv" and all fall 2023 calves will be in the "calving_fall_2023.csv". 
 
 Each csv sheet contains the following header: calfID	cowID	DOB	calf_died	AI	Preg_loss	Twin	No_breed	Group
 * calfID: the tag number of the calf born. _Note: this may be blank if no calf was born from the exposed cow._
