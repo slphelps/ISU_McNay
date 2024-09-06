@@ -21,6 +21,7 @@ library(expss)
 library(tibble)
 library(fs)
 library(tools)
+library(writexl)
 
 # ensure you are working in the directory that has the folder containing "year_sheets"
 
@@ -180,6 +181,7 @@ AIperNB <- list()
 NSper <- list()
 open_per <- list()
 
+
 # loop through each group_year df 
 for (key in names(group_sets)) {
   data <- group_sets[[key]]
@@ -211,6 +213,7 @@ for (key in names(group_sets)) {
   
   # Open heifers
   open_per[[key]] <- (open[[key]] / exposed[[key]]) * 100
+
 }
 
 # convert the lists a data frame
@@ -227,7 +230,6 @@ print(group_results)
 # write the data frame as a csv file
 write.csv(group_results, file = "group_results.csv", row.names = FALSE)
 
-library(writexl)
 
 # write the data frame as an excel file
 write_xlsx(group_results, path = "group_results.xlsx")
@@ -283,8 +285,6 @@ repro_bar_name <- paste0("reproductive_performance_plots/Reproductive_Performanc
 # Save the plot to a file
 ggsave(filename = repro_bar_name, plot = repro_bar, width = 8, height = 6)
 
-# Optional: Print a message indicating that the plot was saved
-message(paste("Saved plot for group", group, "to", repro_bar_name))
 }
 
 
@@ -302,6 +302,9 @@ preg <- list() # number pregnant
 calves <- list() # number of calves 
 preg_loss_percent <- list()
 calf_loss_percent <- list()
+twin_count <- list()
+twin_per <- list()
+
 
 # loop through each group_year df 
 for (key in names(group_sets)) {
@@ -326,6 +329,12 @@ for (key in names(group_sets)) {
   
   # calf loss percent
   calf_loss_percent[[key]] <- (calf_loss[[key]] / calves[[key]]) * 100
+  
+  # twin pair count 
+  twin_count[[key]] <- length(data$Twin[!is.na(data$Twin) & data$Twin == 1])
+  
+  # twin birth %
+  twin_per[[key]] <- ((twin_count[[key]] / preg[[key]]) * 100)
 }
 
 
@@ -335,21 +344,52 @@ loss_results <- data.frame(
   Preg_loss = unlist(preg_loss),
   Calf_loss = unlist(calf_loss), 
   Preg_loss_percent = unlist(preg_loss_percent), 
-  Calf_loss_percent = unlist(calf_loss_percent))
+  Calf_loss_percent = unlist(calf_loss_percent), 
+  Twin_birth_percent = unlist(twin_per))
+
 
 print(loss_results)
 
 # write the data frame as a csv file
 write.csv(loss_results, file = "loss_results.csv", row.names = FALSE)
 
-library(writexl)
 
 # write the data frame as an excel file
 write_xlsx(loss_results, path = "loss_results.xlsx")
 
+
+
+
+
+
+
+
+
+
+
   
-    
-  
+# Cow and Calf Number -------------------------------------------------------------
+
+numbers <- data.frame(
+  Group = names(group_sets),
+  Cow_N = unlist(exposed), # number of exposed females in each group
+  Calf_N = unlist(calves), # number of calves born from each group
+  Twin_N = unlist(twin_count), # number of twin pairs 
+  AI_Cows = unlist(AIexposed)) # number of AI exposed females in each group
+
+
+# write the data frame as a csv file
+write.csv(numbers, file = "numbers.csv", row.names = FALSE)
+
+# write the data frame as an excel file
+write_xlsx(numbers, path = "numbers.xlsx")
+
+
+
+
+
+
+
 
 
 
